@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Vitrin.iml" filepath="$PROJECT_DIR$/Vitrin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Vitrin-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Vitrin-app.iml" group="Vitrin/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/apps-Vitrin.iml" filepath="$PROJECT_DIR$/.idea/modules/apps-Vitrin.iml" group="Vitrin" />
     </modules>
   </component>
 </project>

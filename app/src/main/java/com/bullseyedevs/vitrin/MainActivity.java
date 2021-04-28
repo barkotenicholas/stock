@@ -23,7 +23,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.anjlab.android.iab.v3.BillingProcessor;
+import com.anjlab.android.iab.v3.TransactionDetails;
 import com.bullseyedevs.vitrin.adapter.CategoryPagerAdapter;
 import com.bullseyedevs.vitrin.adapter.ItemAdapter;
 import com.bullseyedevs.vitrin.adapter.OrderAdapter;
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements ItemAdapter.IItem
     private ProgressDialog dialog;
 
     private OrderAdapter orderAdapter;
+
+    private BillingProcessor billingProcessor;
 
 
     /*
@@ -124,7 +129,28 @@ public class MainActivity extends AppCompatActivity implements ItemAdapter.IItem
         setContentView(R.layout.activity_main);
 
         prepareData();
+        billingProcessor = new BillingProcessor(this,"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAimYOGnBuxZXnU5GCiXsaWdSFW3ToKhiEOB25l1GvbGAVKdOksfAfkWFbi3aFz39Xpl61Ef7K/0kmUcb2yYBA4olyW8rFhlpRtIi1s4oIm1ZIaWUZ730jnejctr8XWVEFFCtnLbh9gS1wuzB4txu5xM1mjs3rQAZ1jO7NL96s1wwoFm30a9iNPxsUcEHTF/Dho+ufvXKnAGu8/SqVm3erQFzL0sTST/AY4Yw4o2ViDxqqe2l69GlJgYu9T7ccf/ZahQM25bS4v71iD5LrRMwQjDc4528UbWn6iqJCsKeS8cCICc3Oj5CLTJ/Pb12DbvfKkbdf0/LwQpn8HDguH9zhCQIDAQAB" , null, new BillingProcessor.IBillingHandler() {
+            @Override
+            public void onProductPurchased(String productId, TransactionDetails details) {
+                Toast.makeText(MainActivity.this,"purchased",Toast.LENGTH_LONG);
 
+            }
+
+            @Override
+            public void onPurchaseHistoryRestored() {
+
+            }
+
+            @Override
+            public void onBillingError(int errorCode, Throwable error) {
+
+            }
+
+            @Override
+            public void onBillingInitialized() {
+
+            }
+        });
         // Find views
         drawer = findViewById(R.id.dlMain);
         txtTotal = findViewById(R.id.txtTotal);
@@ -759,8 +785,8 @@ public class MainActivity extends AppCompatActivity implements ItemAdapter.IItem
                 {
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        showProgress(true);
-                        new CompleteOrderTask().execute();
+                        billingProcessor.subscribe(MainActivity.this,"acup");
+
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener()
